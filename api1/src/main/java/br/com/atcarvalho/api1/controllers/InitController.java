@@ -19,7 +19,7 @@ public class InitController implements InitApi {
     private Sender sender;
     @Override
     public ResponseEntity<String> initChargeData() {
-        fipeFeignClient.getBrands().forEach(it-> sender.send(Utils.toJson(it)));
+        fipeFeignClient.getBrands().forEach(it-> sender.send(it));
         return ResponseEntity.ok("OK");
     }
 }

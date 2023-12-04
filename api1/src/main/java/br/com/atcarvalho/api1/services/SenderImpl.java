@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class SenderImpl implements Sender{
+public class SenderImpl implements Sender {
 
 
     private RabbitTemplate rabbitTemplate;
@@ -22,7 +22,7 @@ public class SenderImpl implements Sender{
 
 
     @Override
-    public void send(String message) {
+    public void send(Object message) {
         rabbitTemplate.convertAndSend(this.queue.getName(), message);
         log.info("Send queue for topic {}", this.queue.getName());
     }
