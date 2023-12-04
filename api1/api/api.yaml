@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: Api-1
+  description: Title
+  version: 0.0.1
+servers:
+  - url: 'https://localhost:8080'
+
+paths:
+  /init:
+    get:
+      tags:
+        - init
+      summary: init charge of data
+      description: init charge of data
+      operationId: initChargeData
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: string
+  /brands:
+    get:
+      tags:
+        - brands
+      summary: get all brands
+      description: get all brands
+      operationId: getAllBrands
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Brand"
+
+  /brands/{id}/models:
+    get:
+      tags:
+        - brands
+      summary: get models of brand
+      description: get models of brand
+      operationId: getModelsOfBrand
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BrandWithModels"
+        "404":
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+
+    Brand:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    Model:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        comment:
+          type: string
+
+    BrandWithModels:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        models:
+          type: array
+          items:
+            $ref: "#/components/schemas/Model"
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
